@@ -1,0 +1,88 @@
+#add_payment_method #payment ul.payment_methods li img.kashier-icon, .woocommerce-checkout #payment ul.payment_methods li img.kashier-icon {
+    max-width: 40px;
+    padding-left: 3px;
+    margin: 0;
+}
+
+#add_payment_method #payment ul.payment_methods li .kashier-card-brand, .woocommerce-checkout #payment ul.payment_methods li .kashier-card-brand {
+    position: absolute;
+    top: 50%;
+    margin-top: -10px;
+    right: 10px;
+    left: auto;
+    display: block;
+    width: 30px;
+    height: 24px;
+}
+
+#add_payment_method #payment ul.payment_methods li .kashier-credit-card-brand, .woocommerce-checkout #payment ul.payment_methods li .kashier-credit-card-brand {
+    background: no-repeat url(../images/credit-card.svg);
+}
+
+#add_payment_method #payment ul.payment_methods .kashier-card-group, .woocommerce-checkout #payment ul.payment_methods .kashier-card-group {
+    position: relative;
+}
+
+#add_payment_method #payment ul.payment_methods li .kashier-visa-brand, .woocommerce-checkout #payment ul.payment_methods li .kashier-visa-brand {
+    background: no-repeat url(../images/visa.svg);
+}
+
+#add_payment_method #payment ul.payment_methods li .kashier-amex-brand, .woocommerce-checkout #payment ul.payment_methods li .kashier-amex-brand {
+    background: no-repeat url(../images/amex.svg);
+}
+
+#add_payment_method #payment ul.payment_methods li .kashier-diners-brand, .woocommerce-checkout #payment ul.payment_methods li .kashier-diners-brand {
+    background: no-repeat url(../images/diners.svg);
+}
+
+#add_payment_method #payment ul.payment_methods li .kashier-discover-brand, .woocommerce-checkout #payment ul.payment_methods li .kashier-discover-brand {
+    background: no-repeat url(../images/discover.svg);
+}
+
+#add_payment_method #payment ul.payment_methods li .kashier-jcb-brand, .woocommerce-checkout #payment ul.payment_methods li .kashier-jcb-brand {
+    background: no-repeat url(../images/jcb.svg);
+}
+
+#add_payment_method #payment ul.payment_methods li .kashier-maestro-brand, .woocommerce-checkout #payment ul.payment_methods li .kashier-maestro-brand {
+    background: no-repeat url(../images/maestro.svg);
+}
+
+#add_payment_method #payment ul.payment_methods li .kashier-mastercard-brand, .woocommerce-checkout #payment ul.payment_methods li .kashier-mastercard-brand {
+    background: no-repeat url(../images/mastercard.svg);
+}
+
+.kashier-invalid {
+    color: #eb1c26;
+    border: solid 2px #eb1c26;
+}
+
+input.kashier-invalid:focus {
+    outline-color: #eb1c26;
+}
+
+.wc-kashier-elements-field input {
+    padding: 5px;
+}
+
+#kashier_3ds_iframe.show {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    z-index: 999999;
+}
+
+#kashier_3ds_iframe.hide {
+    display: none;
+}
+
+.rtl #wc-kashier-cc-form input {
+    direction: ltr;
+}

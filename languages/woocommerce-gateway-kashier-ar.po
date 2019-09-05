@@ -1,0 +1,184 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Kashier Gateway\n"
+"POT-Creation-Date: 2019-08-29 01:58+0200\n"
+"PO-Revision-Date: 2019-08-29 02:16+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.12\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: woocommerce-gateway-kashier.php\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: includes/admin/kashier-settings.php:10
+msgid "Enable/Disable"
+msgstr "تفعيل"
+
+#: includes/admin/kashier-settings.php:11
+msgid "Enable Kashier"
+msgstr "تفعيل كاشير"
+
+#: includes/admin/kashier-settings.php:17
+msgid "Title"
+msgstr "عنوان طريقة الدفع"
+
+#: includes/admin/kashier-settings.php:19
+msgid "This controls the title which the user sees during checkout."
+msgstr "العنوان الذي يراه المستخدم أثناء الدفع."
+
+#: includes/admin/kashier-settings.php:20
+msgid "Credit Card (Kashier)"
+msgstr "بطاقة الائتمان (كاشير)"
+
+#: includes/admin/kashier-settings.php:24
+msgid "Description"
+msgstr "الوصف"
+
+#: includes/admin/kashier-settings.php:26
+msgid "This controls the description which the user sees during checkout."
+msgstr "هذا يتحكم في الوصف الذي يراه المستخدم أثناء الدفع."
+
+#: includes/admin/kashier-settings.php:27
+msgid "Pay with your credit card via Kashier."
+msgstr "ادفع باستخدام بطاقتك الائتمانية عبر كاشيير."
+
+#: includes/admin/kashier-settings.php:31
+msgid "Test mode"
+msgstr "وضع الاختبار"
+
+#: includes/admin/kashier-settings.php:32
+msgid "Enable Test Mode"
+msgstr "تفعيل وضع الاختبار"
+
+#: includes/admin/kashier-settings.php:34
+msgid "Place the payment gateway in test mode using test API keys."
+msgstr "لتفعيل وضع الاختبار"
+
+#: includes/admin/kashier-settings.php:39
+msgid "Merchant ID"
+msgstr "المُعرّف (Merchant ID)"
+
+#: includes/admin/kashier-settings.php:41
+msgid "Get your Merchant ID from your kashier account."
+msgstr "احصل على معرِّف Merchant الخاص بك من حسابك في kashier."
+
+#: includes/admin/kashier-settings.php:46
+msgid "Test API Key"
+msgstr ""
+
+#: includes/admin/kashier-settings.php:48 includes/admin/kashier-settings.php:55
+msgid "Get your API keys from your kashier account."
+msgstr "احصل على مفاتيح API من حساب kashier الخاص بك."
+
+#: includes/admin/kashier-settings.php:53
+msgid "Live API Key"
+msgstr ""
+
+#: includes/admin/kashier-settings.php:60
+msgid "Saved Cards"
+msgstr "البطاقات المحفوظة"
+
+#: includes/admin/kashier-settings.php:61
+msgid "Enable Payment via Saved Cards"
+msgstr "تمكين الدفع عن طريق البطاقات المحفوظة"
+
+#: includes/admin/kashier-settings.php:63
+msgid "If enabled, users will be able to pay with a saved card during checkout. Card details are saved on Kashier servers, not on your store."
+msgstr "في حالة التفعيل ، سيتمكن المستخدمون من الدفع ببطاقة محفوظة أثناء الدفع. يتم حفظ تفاصيل البطاقة على خوادم Kashier ، وليس في متجرك."
+
+#: includes/admin/kashier-settings.php:68
+msgid "Logging"
+msgstr ""
+
+#: includes/admin/kashier-settings.php:69
+msgid "Log debug messages"
+msgstr ""
+
+#: includes/admin/kashier-settings.php:71
+msgid "Save debug messages to the WooCommerce System Status log."
+msgstr ""
+
+#: includes/class-wc-gateway-kashier.php:138
+#, php-format
+msgid "Kashier charge complete (Transaction ID: %s)"
+msgstr ""
+
+#: includes/class-wc-gateway-kashier.php:228
+msgid "TEST MODE ENABLED"
+msgstr "تم تفعيل وضع المطور"
+
+#: includes/class-wc-gateway-kashier.php:260
+msgid "Card Number"
+msgstr "رقم البطاقة"
+
+#: includes/class-wc-gateway-kashier.php:274
+msgid "Expiry Date"
+msgstr "تاريخ الانتهاء"
+
+#: includes/class-wc-gateway-kashier.php:285
+msgid "Card Code (CCV)"
+msgstr "رمز البطاقة (CCV)"
+
+#: includes/class-wc-gateway-kashier.php:478
+msgid "3DSecure payment verification required"
+msgstr "التحقق من دفع 3DSecure مطلوب"
+
+#: includes/class-wc-gateway-kashier.php:493
+msgid "Error: "
+msgstr "خطأ: "
+
+#: includes/class-wc-kashier-helper.php:20
+msgid "Kashier"
+msgstr "كاشير"
+
+#: includes/class-wc-kashier-helper.php:21
+msgid "Kashier works by adding payment fields on the checkout and then sending the details to Kashier for verification. <a href=\"%1$s\" target=\"_blank\">Sign up</a> for a Kashier account, and <a href=\"%2$s\" target=\"_blank\">get your Kashier account keys</a>."
+msgstr ""
+
+#: includes/class-wc-kashier-helper.php:22
+msgid "Please check your credit card info."
+msgstr "يرجى التحقق من معلومات بطاقة الائتمان الخاصة بك."
+
+#: includes/class-wc-kashier-helper.php:23
+msgid "Requested order not found"
+msgstr "لم يتم العثور على الطلب المطلوب"
+
+#: includes/class-wc-kashier-helper.php:24
+msgid "Payment processing failed. Please try again."
+msgstr "فشلت عملية الدفع، يرجى المحاولة مرة أخرى"
+
+#: includes/class-wc-kashier-helper.php:25
+msgid "Sorry, the minimum allowed order total is %1$s to use this payment method."
+msgstr "عذرًا ، الحد الأدنى للطلب المسموح به هو ‪%‬1‪$‬s لاستخدام طريقة الدفع هذه."
+
+#: woocommerce-gateway-kashier.php:28
+msgid "Kashier requires WooCommerce to be installed and active. You can download %s here"
+msgstr "يتطلب Kashier تثبيت WooCommerce ونشطته. يمكنك تنزيل ‪%‬s هنا"
+
+#: woocommerce-gateway-kashier.php:161
+msgid "Settings"
+msgstr "الإعدادات"
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Kashier Gateway"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Take credit card payments on your store using Kashier."
+msgstr "أخذ مدفوعات بطاقات الائتمان في متجرك باستخدام Kashier."
+
+#. Author of the plugin/theme
+msgid "Ahmed El-Araby"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://ikoded.com/"
+msgstr ""
