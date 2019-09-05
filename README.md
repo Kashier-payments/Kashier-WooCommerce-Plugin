@@ -1,1 +1,0 @@
-# kashier-woocommerce-plugin
