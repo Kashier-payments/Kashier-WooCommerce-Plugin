@@ -44,7 +44,7 @@ class WC_Gateway_Kashier extends WC_Payment_Gateway_CC
     {
         $this->id = 'kashier';
         $this->method_title = WC_Kashier_Helper::get_localized_message('payment_method_title');
-        $this->method_description = sprintf(WC_Kashier_Helper::get_localized_message('payment_method_description'), 'https://merchant.kashier.io/en/signup', 'https://merchant.kashier.io/en/integrations');
+        $this->method_description = sprintf(WC_Kashier_Helper::get_localized_message('payment_method_description'), 'https://kashier.io/', 'https://merchant.kashier.io/en/signup');
         $this->has_fields = true;
         $this->supports = [
             'products',
@@ -210,7 +210,7 @@ class WC_Gateway_Kashier extends WC_Payment_Gateway_CC
                 'credit-card' => '<img src="' . WC_KASHIER_PLUGIN_URL . '/assets/images/credit-card.svg" class="kashier-credit-card-icon kashier-icon" alt="Credit Card" />',
                 'visa' => '<img src="' . WC_KASHIER_PLUGIN_URL . '/assets/images/visa.svg" class="kashier-visa-icon kashier-icon" alt="Visa" />',
                 'mastercard' => '<img src="' . WC_KASHIER_PLUGIN_URL . '/assets/images/mastercard.svg" class="kashier-mastercard-icon kashier-icon" alt="Mastercard" />',
-                'meeza' => '<img src="' . WC_KASHIER_PLUGIN_URL . '/assets/images/meeza.png" class="kashier-meeza-icon kashier-icon" alt="Meeza" />',
+                'meeza' => '<img src="' . WC_KASHIER_PLUGIN_URL . '/assets/images/meeza.svg" class="kashier-meeza-icon kashier-icon" alt="Meeza" />',
             ]
         );
     }
@@ -243,6 +243,8 @@ class WC_Gateway_Kashier extends WC_Payment_Gateway_CC
 
             $this->save_payment_method_checkbox();
         }
+
+        echo '<div id="secured-by-kashier-container"><img src="' . WC_KASHIER_PLUGIN_URL . '/assets/images/secured-by-kashier.png" alt="Secured by Kashier"/></div>';
 
         do_action('wc_kashier_cards_payment_fields', $this->id);
     }
@@ -436,7 +438,8 @@ class WC_Gateway_Kashier extends WC_Payment_Gateway_CC
             WC_Kashier_Logger::addLog("Info: Begin processing payment for order $order_id for the amount of {$order->get_total()}");
 
             $checkoutRequest = new \ITeam\Kashier\Api\Data\CheckoutRequest();
-            $checkoutRequest->setOrder($order->get_id() . rand())
+            $checkoutRequest
+                ->setOrderId($order->get_id())
                 ->setAmount($order->get_total())
                 ->setCurrency($order->get_currency())
                 ->setShopperReference(get_current_user_id())
@@ -451,6 +454,9 @@ class WC_Gateway_Kashier extends WC_Payment_Gateway_CC
             if ($this->is_using_saved_card() && $token !== null) {
                 $checkoutRequest->setCardToken($token->get_token());
             } else if (is_array($submittedToken) && ! empty($submittedToken)) {
+                if (isset($submittedToken['response']['ccvToken'])) {
+                    $checkoutRequest->setCcvToken($submittedToken['response']['ccvToken']);
+                }
                 $checkoutRequest->setCardToken($submittedToken['response']['cardToken']);
             } else {
                 throw new WC_Kashier_Exception('Payment processing failed', WC_Kashier_Helper::get_localized_message('payment_failed'));

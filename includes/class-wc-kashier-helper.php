@@ -18,7 +18,7 @@ class WC_Kashier_Helper
             'wc_kashier_localized_messages',
             array(
                 'payment_method_title' => __('Kashier', 'woocommerce-gateway-kashier'),
-                'payment_method_description' => __('Kashier works by adding payment fields on the checkout and then sending the details to Kashier for verification. <a href="%1$s" target="_blank">Sign up</a> for a Kashier account, and <a href="%2$s" target="_blank">get your Kashier account keys</a>.', 'woocommerce-gateway-kashier'),
+                'payment_method_description' => __('Online Payments by <a href="%1$s">Kashier</a> <a href="%2$s">Signup</a> to obtain your test MID and Credentials.', 'woocommerce-gateway-kashier'),
                 'please_check_card_info' => __('Please check your credit card info.', 'woocommerce-gateway-kashier'),
                 'order_not_found' => __('Requested order not found', 'woocommerce-gateway-kashier'),
                 'payment_failed' => __('Payment processing failed. Please try again.', 'woocommerce-gateway-kashier'),

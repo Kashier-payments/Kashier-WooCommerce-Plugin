@@ -33,11 +33,13 @@ class CheckoutWithTokenRequestCipher implements ICipher
         $path = '/?payment='
             . $this->apiContext->getMerchantId()
             . '.'
-            . $this->checkoutRequest->getShopperReference()
+            . $this->checkoutRequest->getOrderId()
             . '.'
             . $this->checkoutRequest->getAmount()
             . '.'
-            . $this->checkoutRequest->getCurrency();
+            . $this->checkoutRequest->getCurrency()
+            . '.'
+            . $this->checkoutRequest->getShopperReference();
 
         return hash_hmac('sha256', $path, $this->apiContext->getCredential()->getApiKey(), false);
     }

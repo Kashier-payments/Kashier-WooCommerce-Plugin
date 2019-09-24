@@ -27,11 +27,11 @@ class Checkout extends KashierResourceModel
     ];
 
     /**
-     * @param Data\CheckoutRequest $checkoutRequest
+     * @param \ITeam\Kashier\Api\Data\CheckoutRequest $checkoutRequest
      *
      * @return Checkout
      */
-    public function setCheckoutRequest(Data\CheckoutRequest $checkoutRequest)
+    public function setCheckoutRequest(\ITeam\Kashier\Api\Data\CheckoutRequest $checkoutRequest)
     {
         $this->checkoutRequest = $checkoutRequest;
 
@@ -71,7 +71,7 @@ class Checkout extends KashierResourceModel
     }
 
     /**
-     * @return Data\CheckoutRequest
+     * @return \ITeam\Kashier\Api\Data\CheckoutRequest
      */
     public function getCheckoutRequest()
     {
@@ -80,7 +80,8 @@ class Checkout extends KashierResourceModel
 
     public function isSuccess()
     {
-        return strtoupper($this->getStatus()) === 'SUCCESS';
+        $response = $this->getResponse();
+        return strtoupper($this->getStatus()) === 'SUCCESS' && !isset($response['error']['cause']) && !empty($response['error']['cause']);
     }
 
     public function isPending()
