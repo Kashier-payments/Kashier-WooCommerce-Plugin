@@ -7,16 +7,18 @@
 #add_payment_method #payment ul.payment_methods li .kashier-card-brand, .woocommerce-checkout #payment ul.payment_methods li .kashier-card-brand {
     position: absolute;
     top: 50%;
-    margin-top: -13px;
+    margin-top: -15px;
     right: 0;
     left: auto;
     display: block;
-    width: 50px;
+    width: 55px;
     height: 30px;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
 }
 
 #add_payment_method #payment ul.payment_methods li .kashier-credit-card-brand, .woocommerce-checkout #payment ul.payment_methods li .kashier-credit-card-brand {
-    background: no-repeat url(../images/credit-card.svg);
+    background-image: url(../images/credit-card.svg);
 }
 
 #add_payment_method #payment ul.payment_methods .kashier-card-group, .woocommerce-checkout #payment ul.payment_methods .kashier-card-group {
@@ -24,31 +26,11 @@
 }
 
 #add_payment_method #payment ul.payment_methods li .kashier-visa-brand, .woocommerce-checkout #payment ul.payment_methods li .kashier-visa-brand {
-    background: no-repeat url(../images/visa.svg);
-}
-
-#add_payment_method #payment ul.payment_methods li .kashier-amex-brand, .woocommerce-checkout #payment ul.payment_methods li .kashier-amex-brand {
-    background: no-repeat url(../images/amex.svg);
-}
-
-#add_payment_method #payment ul.payment_methods li .kashier-diners-brand, .woocommerce-checkout #payment ul.payment_methods li .kashier-diners-brand {
-    background: no-repeat url(../images/diners.svg);
-}
-
-#add_payment_method #payment ul.payment_methods li .kashier-discover-brand, .woocommerce-checkout #payment ul.payment_methods li .kashier-discover-brand {
-    background: no-repeat url(../images/discover.svg);
-}
-
-#add_payment_method #payment ul.payment_methods li .kashier-jcb-brand, .woocommerce-checkout #payment ul.payment_methods li .kashier-jcb-brand {
-    background: no-repeat url(../images/jcb.svg);
-}
-
-#add_payment_method #payment ul.payment_methods li .kashier-maestro-brand, .woocommerce-checkout #payment ul.payment_methods li .kashier-maestro-brand {
-    background: no-repeat url(../images/maestro.svg);
+    background-image: url(../images/visa.svg);
 }
 
 #add_payment_method #payment ul.payment_methods li .kashier-mastercard-brand, .woocommerce-checkout #payment ul.payment_methods li .kashier-mastercard-brand {
-    background: no-repeat url(../images/mastercard.svg);
+    background-image: url(../images/mastercard.svg);
 }
 
 .kashier-invalid {

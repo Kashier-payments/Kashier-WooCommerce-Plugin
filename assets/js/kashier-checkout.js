@@ -7,9 +7,10 @@ jQuery(function ($) {
         selectorExpiryDate: '#kashier_expiry_date',
         selectorCCV: '#kashier_ccv',
         tokenizationResponseClassName: 'kashier-ktr',
+        isCCDataValid: false,
 
         init: function () {
-            let $form = $('form.woocommerce-checkout');
+            let $form = $('form.checkout');
             if ($form.length) {
                 this.$form = $form;
             }
@@ -19,7 +20,12 @@ jQuery(function ($) {
                 this.$form.on('submit', this.onSubmit);
             }
 
-            if (! this.$form) {
+            if (this.isOrderPayPage()) {
+                this.$form = $('form#order_review');
+                this.$form.on('submit', this.onSubmit);
+            }
+
+            if (!this.$form) {
                 return;
             }
 
@@ -42,23 +48,29 @@ jQuery(function ($) {
             this.$body.on("keyup", this.selectorCCNumber, function () {
                 wc_kashier_checkout_form._updateCardBrand($.payform.parseCardType(this.value));
                 $(this).removeClass('kashier-invalid');
+                wc_kashier_checkout_form.isCCDataValid = true;
                 if (false === $.payform.validateCardNumber(this.value)) {
                     $(this).addClass('kashier-invalid');
+                    wc_kashier_checkout_form.isCCDataValid = false;
                 }
             });
 
             this.$body.on("keyup", this.selectorExpiryDate, function () {
                 $(this).removeClass('kashier-invalid');
                 const expiry = $.payform.parseCardExpiry(this.value);
+                wc_kashier_checkout_form.isCCDataValid = true;
                 if (false === $.payform.validateCardExpiry(expiry.month, expiry.year)) {
                     $(this).addClass('kashier-invalid');
+                    wc_kashier_checkout_form.isCCDataValid = false;
                 }
             });
 
             this.$body.on("keyup", this.selectorCCV, function () {
                 $(this).removeClass('kashier-invalid');
+                wc_kashier_checkout_form.isCCDataValid = true;
                 if (false === $.payform.validateCardCVC(this.value)) {
                     $(this).addClass('kashier-invalid');
+                    wc_kashier_checkout_form.isCCDataValid = false;
                 }
             });
         },
@@ -90,10 +102,38 @@ jQuery(function ($) {
 
             imageElement.addClass(imageClass);
         },
+        submitError(errorMessage) {
+            $('.woocommerce-NoticeGroup-checkout, .woocommerce-error, .woocommerce-message').remove();
+            wc_kashier_checkout_form.$form.prepend('<div class="woocommerce-NoticeGroup woocommerce-NoticeGroup-checkout">' +
+                '<ul class="woocommerce-error" role="alert">' +
+                '<li>' +  errorMessage + '</li>' +
+                '</ul>' +
+                '</div>'
+            );
+            wc_kashier_checkout_form.$form.removeClass('processing').unblock();
+            wc_kashier_checkout_form.$form.find('.input-text, select, input:checkbox').trigger('validate').blur();
+            wc_kashier_checkout_form.scrollToNotices();
+            $(document.body).trigger('checkout_error');
+        },
+        scrollToNotices() {
+            var scrollElement = $('.woocommerce-NoticeGroup-updateOrderReview, .woocommerce-NoticeGroup-checkout');
+
+            if (!scrollElement.length) {
+                scrollElement = wc_kashier_checkout_form.$form;
+            }
+            $.scroll_to_notices(scrollElement);
+        },
         onSubmit() {
+            console.log('on submit');
             if (wc_kashier_checkout_form.isKashierSavedCardChosen() || wc_kashier_checkout_form.isTokenized()) {
                 return true;
             }
+
+            if (false === wc_kashier_checkout_form.isCCDataValid) {
+                wc_kashier_checkout_form.submitError(wc_kashier_params.please_check_card_info)
+                return false;
+            }
+
             wc_kashier_checkout_form.block();
 
             // noinspection JSUnresolvedVariable
@@ -137,19 +177,22 @@ jQuery(function ($) {
                 );
 
                 wc_kashier_checkout_form.$form.unblock();
-            }).finally(function() {
+            }).finally(function () {
                 wc_kashier_checkout_form.$form.submit();
             });
 
-            if ( wc_kashier_checkout_form.isAddPaymentMethodPage() ) {
-                $( wc_kashier_checkout_form.$form ).off( 'submit', wc_kashier_checkout_form.$form.onSubmit );
+            if (wc_kashier_checkout_form.isAddPaymentMethodPage()) {
+                $(wc_kashier_checkout_form.$form).off('submit', wc_kashier_checkout_form.$form.onSubmit);
             }
 
 
             return false;
         },
-        isAddPaymentMethodPage: function() {
-            return $( 'form#add_payment_method' ).length;
+        isAddPaymentMethodPage: function () {
+            return $('form#add_payment_method').length;
+        },
+        isOrderPayPage: function () {
+            return $('form#order_review').length;
         },
         block: function () {
             wc_kashier_checkout_form.$form.block({

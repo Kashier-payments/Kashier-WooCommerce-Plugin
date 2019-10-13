@@ -324,7 +324,7 @@ class WC_Gateway_Kashier extends WC_Payment_Gateway_CC
             return;
         }
 
-        $suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
+        $suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '';
 
         wp_register_style('kashier_styles', plugins_url('assets/css/kashier-styles.css', WC_KASHIER_MAIN_FILE), [], WC_KASHIER_VERSION);
         wp_enqueue_style('kashier_styles');
@@ -439,7 +439,7 @@ class WC_Gateway_Kashier extends WC_Payment_Gateway_CC
 
             $checkoutRequest = new \ITeam\Kashier\Api\Data\CheckoutRequest();
             $checkoutRequest
-                ->setOrderId($order->get_id())
+                ->setOrderId($order->get_id() . '-' . time())
                 ->setAmount($order->get_total())
                 ->setCurrency($order->get_currency())
                 ->setShopperReference(get_current_user_id())

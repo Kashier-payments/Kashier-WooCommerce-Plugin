@@ -81,7 +81,7 @@ class Checkout extends KashierResourceModel
     public function isSuccess()
     {
         $response = $this->getResponse();
-        return strtoupper($this->getStatus()) === 'SUCCESS' && !isset($response['error']['cause']) && !empty($response['error']['cause']);
+        return strtoupper($this->getStatus()) === 'SUCCESS';
     }
 
     public function isPending()
