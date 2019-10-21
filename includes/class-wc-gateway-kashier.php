@@ -112,7 +112,7 @@ class WC_Gateway_Kashier extends WC_Payment_Gateway_CC
         $order = wc_get_order($order_id);
 
         if (is_a($order, WC_Order::class)) {
-            if (strtoupper($_POST['status']) === 'SUCCESS') {
+            if (strtoupper($_POST['status']) === 'SUCCESS' && isset($_POST['response']['card']['result']) && strtoupper($_POST['response']['card']['result']) === 'SUCCESS') {
                 $this->_payment_success_handler($order, wc_clean($_POST['response']['transactionId']));
 
                 $response['result'] = 'success';
@@ -442,7 +442,7 @@ class WC_Gateway_Kashier extends WC_Payment_Gateway_CC
                 ->setOrderId($order->get_id() . '-' . time())
                 ->setAmount($order->get_total())
                 ->setCurrency($order->get_currency())
-                ->setShopperReference(get_current_user_id())
+                ->setShopperReference((string)get_current_user_id())
                 ->setDisplay('en');
 
             $requestCipher = new \ITeam\Kashier\Security\CheckoutWithTokenRequestCipher($this->apiContext, $checkoutRequest);
@@ -495,7 +495,7 @@ class WC_Gateway_Kashier extends WC_Payment_Gateway_CC
                 do_action('wc_gateway_kashier_process_response', $response, $order);
             } else {
                 $localized_message = WC_Kashier_Helper::get_localized_message('payment_failed');
-                $order->add_order_note($localized_message . ' ' . __('Error: ') . $response->getErrorMessage());
+                $order->add_order_note(__('Payment Error: ') . $response->getErrorMessage());
                 throw new WC_Kashier_Exception(print_r($response, true), $localized_message);
             }
 

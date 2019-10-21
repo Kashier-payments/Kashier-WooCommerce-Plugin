@@ -1,9 +1,9 @@
 <?php
 /**
  * Plugin Name: WooCommerce Kashier Gateway
- * Description: Take credit card payments on your store using Kashier.
- * Author: Ahmed El-Araby
- * Author URI: https://ikoded.com/
+ * Description: Acceptd online payments on your store.
+ * Author: Kashier
+ * Author URI: https://kashier.io/
  * Version: 1.0.0
  * Requires at least: 4.4
  * Tested up to: 5.2.1

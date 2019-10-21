@@ -81,7 +81,12 @@ class Checkout extends KashierResourceModel
     public function isSuccess()
     {
         $response = $this->getResponse();
-        return strtoupper($this->getStatus()) === 'SUCCESS';
+
+        if (isset($response['card']['result'])) {
+            return strtoupper($response['card']['result']) === 'SUCCESS';
+        }
+
+        return false;
     }
 
     public function isPending()
@@ -116,22 +121,22 @@ class Checkout extends KashierResourceModel
     /**
      * @return array
      */
-    public function getError()
+    public function getMessages()
     {
-        return $this->error;
+        return $this->messages;
     }
 
     public function getErrorMessage()
     {
         $responseData = $this->getResponse();
-        $error = $this->getError();
+        $errorMessages = $this->getMessages();
 
-        if (isset($responseData['error']['explanation'])) {
-            return $responseData['error']['explanation'];
+        if (isset($errorMessages['en'])) {
+            return $errorMessages['en'];
         }
 
-        if (!isset($responseData['error']['explanation']) && isset($error['explanation'])) {
-            return $error['explanation'];
+        if (isset($responseData['messages']['en'])) {
+            return $responseData['messages']['en'];
         }
     }
 

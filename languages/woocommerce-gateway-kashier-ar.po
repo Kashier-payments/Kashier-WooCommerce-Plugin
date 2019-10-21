@@ -176,9 +176,9 @@ msgid "Take credit card payments on your store using Kashier."
 msgstr "أخذ مدفوعات بطاقات الائتمان في متجرك باستخدام Kashier."
 
 #. Author of the plugin/theme
-msgid "Ahmed El-Araby"
+msgid "Kashier"
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "https://ikoded.com/"
+msgid "https://kashier.io/"
 msgstr ""
