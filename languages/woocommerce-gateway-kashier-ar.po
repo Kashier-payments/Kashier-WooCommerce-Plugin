@@ -35,7 +35,7 @@ msgid "This controls the title which the user sees during checkout."
 msgstr "العنوان الذي يراه المستخدم أثناء الدفع."
 
 #: includes/admin/kashier-settings.php:20
-msgid "Credit Card (Kashier)"
+msgid "Online Card (Kashier)"
 msgstr "بطاقة الائتمان (كاشير)"
 
 #: includes/admin/kashier-settings.php:24
@@ -47,7 +47,7 @@ msgid "This controls the description which the user sees during checkout."
 msgstr "هذا يتحكم في الوصف الذي يراه المستخدم أثناء الدفع."
 
 #: includes/admin/kashier-settings.php:27
-msgid "Pay with your credit card via Kashier."
+msgid "Pay with your Card via Kashier."
 msgstr "ادفع باستخدام بطاقتك الائتمانية عبر كاشيير."
 
 #: includes/admin/kashier-settings.php:31
@@ -144,7 +144,7 @@ msgid "Kashier works by adding payment fields on the checkout and then sending t
 msgstr ""
 
 #: includes/class-wc-kashier-helper.php:22
-msgid "Please check your credit card info."
+msgid "Please check your Card info."
 msgstr "يرجى التحقق من معلومات بطاقة الائتمان الخاصة بك."
 
 #: includes/class-wc-kashier-helper.php:23
@@ -172,7 +172,7 @@ msgid "WooCommerce Kashier Gateway"
 msgstr ""
 
 #. Description of the plugin/theme
-msgid "Take credit card payments on your store using Kashier."
+msgid "Accept Card payments on your store using Kashier."
 msgstr "أخذ مدفوعات بطاقات الائتمان في متجرك باستخدام Kashier."
 
 #. Author of the plugin/theme

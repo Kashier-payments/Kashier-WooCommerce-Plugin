@@ -19,7 +19,7 @@ class WC_Kashier_Helper
             array(
                 'payment_method_title' => __('Kashier', 'woocommerce-gateway-kashier'),
                 'payment_method_description' => __('Online Payments by <a href="%1$s">Kashier</a> <a href="%2$s">Signup</a> to obtain your test MID and Credentials.', 'woocommerce-gateway-kashier'),
-                'please_check_card_info' => __('Please check your credit card info.', 'woocommerce-gateway-kashier'),
+                'please_check_card_info' => __('Please check your card info.', 'woocommerce-gateway-kashier'),
                 'order_not_found' => __('Requested order not found', 'woocommerce-gateway-kashier'),
                 'payment_failed' => __('Payment processing failed. Please try again.', 'woocommerce-gateway-kashier'),
                 'minimum_amount_error' => __('Sorry, the minimum allowed order total is %1$s to use this payment method.', 'woocommerce-gateway-kashier')

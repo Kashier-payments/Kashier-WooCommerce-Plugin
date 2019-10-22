@@ -159,7 +159,7 @@ class WC_Gateway_Kashier extends WC_Payment_Gateway_CC
         </form>
         <iframe name="<?php echo $this->id ?>_3ds_iframe" id="<?php echo $this->id ?>_3ds_iframe" class="hide"></iframe>
         <!--        <a href="--><?php //echo $order->get_checkout_payment_url()
-        ?><!--" class="button kashier-checkout-back-btn">--><?php //echo __('Change credit card info', 'woocommerce-gateway-kashier')
+        ?><!--" class="button kashier-checkout-back-btn">--><?php //echo __('Change Card info', 'woocommerce-gateway-kashier')
         ?><!--</a>-->
         <?php
     }
