@@ -6,7 +6,7 @@
  * WC tested up to: 4.0.0
 
 ![](https://raw.githubusercontent.com/Kashier-payments/Kashier-WooCommerce-Plugin/master/kashier-logo.png)
-![](https://wordpressfortechnophobes.co.uk/products/wp-content/uploads/2018/03/woocommerce.png)
+![](https://raw.githubusercontent.com/Kashier-payments/Kashier-WooCommerce-Plugin/master/woocommerce-logo.png)
 
 ### Features
 
