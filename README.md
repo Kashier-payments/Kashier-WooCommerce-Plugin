@@ -88,6 +88,17 @@
 
 ![](https://raw.githubusercontent.com/Kashier-payments/Kashier-WooCommerce-Plugin/master/steps/install-7-live-kashier.png)
 
+### Card management
+
+- Add or select a payment method
+
+![](https://raw.githubusercontent.com/Kashier-payments/Kashier-WooCommerce-Plugin/master/steps/install-add-payment-method.png)
+
+- Manage payment methods
+
+![](https://raw.githubusercontent.com/Kashier-payments/Kashier-WooCommerce-Plugin/master/steps/install-manage-methods.png)
+
+
 ### Support
 
 - Leave us an inquiry ticket on https://kashier.io for questions.
