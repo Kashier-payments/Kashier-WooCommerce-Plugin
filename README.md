@@ -86,7 +86,7 @@
 
 - Save configuration.
 
-![](https://raw.githubusercontent.com/Kashier-payments/Kashier-WooCommerce-Plugin/master/steps/install-7-live-kashier.png)
+![](https://raw.githubusercontent.com/Kashier-payments/Kashier-WooCommerce-Plugin/master/steps/install-7-live-kashier-n.png)
 
 ### Card management
 
