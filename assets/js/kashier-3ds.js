@@ -50,6 +50,23 @@ jQuery(function ($) {
                         }
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
+                        
+                       //BEGIN Handling for Print for "Serial Numbers created" in Easy Serial numbers plugin
+                       console.log(jqXHR.responseText)
+                       if(jqXHR.responseText &&  jqXHR.responseText.split(">{").length > 1) 
+                       {
+                        let badResult =  jqXHR.responseText.split(">{");
+                        let  parsedResult = JSON.parse("{"+badResult[1]);
+                        console.log(parsedResult)
+                    
+                        if( parsedResult.redirect &&  (-1 === parsedResult.redirect.indexOf('https://') || -1 === parsedResult.redirect.indexOf('http://')))     {
+                          console.log(parsedResult.redirect)
+                        window.location = parsedResult.redirect;
+                               } 
+                       }
+                        //END Handling for Print for "Serial Numbers created" in Easy Serial numbers plugin
+                        
+                        
                     },
                     always: function () {
                         wc_kashier_3ds.$body.removeClass('kashier-processing').unblock();
