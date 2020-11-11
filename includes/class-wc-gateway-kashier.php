@@ -50,6 +50,13 @@ class WC_Gateway_Kashier extends WC_Payment_Gateway_CC
             'products',
             'tokenization',
             'add_payment_method',
+            'subscriptions',
+            'subscription_cancellation',
+            'subscription_suspension',
+            'subscription_reactivation',
+            'subscription_amount_changes',
+            'subscription_date_changes',
+            'multiple_subscriptions',
         ];
 
         // Load the form fields.
@@ -86,6 +93,127 @@ class WC_Gateway_Kashier extends WC_Payment_Gateway_CC
         add_action('set_logged_in_cookie', [$this, 'set_cookie_on_current_request']);
         add_action('woocommerce_receipt_' . $this->id, [$this, 'kashier_receipt_page']);
         add_action('woocommerce_api_wc_gateway_kashier', [$this, 'check_3ds_response']);
+
+        if ( class_exists( 'WC_Subscriptions_Order' ) ) {
+            add_action('woocommerce_scheduled_subscription_payment_' . $this->id, array($this, 'scheduled_subscription_payment'), 10, 2);
+            //add_action( 'woocommerce_subscription_failing_payment_method_' . $this->id, array( $this, 'update_failing_payment_method' ) );
+            add_filter( 'wc_kashier_display_save_payment_method_checkbox', array( $this, 'maybe_hide_save_checkbox' ), 10, 1 );
+        }
+    }
+
+    public function maybe_hide_save_checkbox( $display_tokenization ) {
+        if ( WC_Subscriptions_Cart::cart_contains_subscription() ) {
+            return false;
+        }
+
+        return $display_tokenization;
+    }
+
+    public function scheduled_subscription_payment( $amount_to_charge, $renewal_order ) {
+        $this->process_subscription_payment( $amount_to_charge, $renewal_order, true, false );
+    }
+
+    public function process_subscription_payment( $amount = 0.0, $order, $retry = true, $previous_error ) {
+        $old_wc               = version_compare( WC_VERSION, '3.0', '<' );
+        $order_id             = $old_wc ? $order->id : $order->get_id();
+
+        if ( 0.0 === (float) $amount ) {
+            $order->payment_complete();
+            return;
+        }
+
+        $redirectUrl = $this->get_return_url($order);
+        try {
+
+            if (0 >= $order->get_total()) {
+                return $this->complete_free_order($order);
+            }
+
+            // This will throw exception if not valid.
+            $this->validate_minimum_order_amount($order);
+
+            WC_Kashier_Logger::addLog("Info: Begin processing payment for order $order_id for the amount of {$order->get_total()}");
+
+            $checkoutRequest = new \ITeam\Kashier\Api\Data\CheckoutRequest();
+            $checkoutRequest
+                ->setOrderId($order->get_id() . '-' . time())
+                ->setAmount($order->get_total())
+                ->setCurrency($order->get_currency())
+                ->setShopperReference((string)get_current_user_id())
+                ->setDisplay('en');
+
+            $requestCipher = new \ITeam\Kashier\Security\CheckoutWithTokenRequestCipher($this->apiContext, $checkoutRequest);
+
+            $customer_id = $order->get_customer_id();
+            $token = null;
+
+            if($customer_id > 0){
+                $token = WC_Payment_Tokens::get_customer_default_token($customer_id);
+            }
+
+            if($token == null){
+                //$token = WC_Payment_Tokens::get_order_tokens($parent_order_o->get_parent_id());
+                $parent = $order->get_meta('_subscription_renewal');
+                $parent_order_o       = wc_get_order( $parent );
+                $parent_order       = wc_get_order( $parent_order_o->get_parent_id() );
+
+                $token_id = $parent_order->get_meta('_id_kashier_token');
+                $token = WC_Payment_Tokens::get($token_id);
+            }
+
+            if ( $token !== null) {
+                $checkoutRequest->setCardToken($token->get_token());
+            }else {
+                throw new WC_Kashier_Exception('Payment processing failed', WC_Kashier_Helper::get_localized_message('payment_failed'));
+            }
+
+            $checkout = new \ITeam\Kashier\Api\Checkout();
+            $checkout->setCheckoutRequest($checkoutRequest);
+
+            $response = $checkout->create($this->apiContext, $requestCipher);
+
+            WC_Kashier_Logger::addLog('Processing response: ' . print_r($response, true));
+
+            $responseData = $response->getResponse();
+
+            if ($response->is3DsRequired()) {
+                $order->add_order_note(__('3DSecure payment verification required', 'woocommerce-gateway-kashier'));
+
+                foreach ($responseData['card']['3DSecure'] as $key => $value) {
+                    WC_Kashier_Helper::is_wc_lt('3.0') ? update_post_meta($order_id, '_kashier_3ds_' . $key, $value) : $order->update_meta_data('_kashier_3ds_' . $key, $value);
+                }
+
+                $redirectUrl = $order->get_checkout_payment_url(true);
+            } else if ($response->isSuccess()) {
+
+                //$this->_payment_success_handler($order, $responseData['transactionId']);
+                $transaction_id = $responseData['transactionId'];
+                $order->payment_complete($transaction_id);
+                $message = sprintf(__('Kashier charge complete (Transaction ID: %s)', 'woocommerce-gateway-kashier'), $transaction_id);
+                $order->add_order_note($message);
+
+                WC_Subscriptions_Manager::process_subscription_payments_on_order( $order );
+
+                //do_action('wc_gateway_kashier_process_response', $response, $order);
+            } else {
+                $localized_message = WC_Kashier_Helper::get_localized_message('payment_failed');
+                $order->add_order_note(__('Payment Error: ') . $response->getErrorMessage());
+
+                WC_Subscriptions_Manager::process_subscription_payment_failure_on_order( $order );
+
+                throw new WC_Kashier_Exception(print_r($response, true), $localized_message);
+            }
+
+            if (is_callable([$order, 'save'])) {
+                $order->save();
+            }
+
+        } catch (Exception $e) {
+            WC_Kashier_Logger::addLog('Error: ' . $e->getMessage());
+            do_action('wc_gateway_kashier_process_payment_error', $e, $order);
+            $order->update_status('failed');
+
+        }
     }
 
     /**
@@ -244,6 +372,12 @@ class WC_Gateway_Kashier extends WC_Payment_Gateway_CC
             $this->save_payment_method_checkbox();
         }
 
+        if(class_exists('WC_Subscriptions_Cart')) {
+            if (WC_Subscriptions_Cart::cart_contains_subscription()) {
+                echo '<input type="hidden" value="1" name="cart-contain-subscriptions" id="cart-contain-subscriptions">';
+            }
+        }
+        
         echo '<div id="secured-by-kashier-container"><img src="' . WC_KASHIER_PLUGIN_URL . '/assets/images/secured-by-kashier.png" alt="Secured by Kashier"/></div>';
 
         do_action('wc_kashier_cards_payment_fields', $this->id);
@@ -425,6 +559,7 @@ class WC_Gateway_Kashier extends WC_Payment_Gateway_CC
     public function process_payment($order_id, $retry = true, $force_save_source = false, $previous_error = false)
     {
         $order = wc_get_order($order_id);
+
         $redirectUrl = $this->get_return_url($order);
         try {
 
@@ -491,8 +626,31 @@ class WC_Gateway_Kashier extends WC_Payment_Gateway_CC
 
                 $redirectUrl = $order->get_checkout_payment_url(true);
             } else if ($response->isSuccess()) {
+
+                if( wcs_order_contains_subscription($order) && $submittedToken ){
+
+                    $tokenData = $submittedToken['response'];
+                    $token  = $this->save_token($tokenData['cardToken'],
+                        strtolower(wc_clean($_POST['kashier_card_brand'])),
+                        substr($tokenData['maskedCard'], -4),
+                        $tokenData['expiry_month'],
+                        $tokenData['expiry_year']
+                    );
+                    $tokenID = $order->add_payment_token($token);
+                    $order->add_meta_data( '_id_kashier_token', $tokenID );
+
+                }elseif (wcs_order_contains_subscription($order) && $token){
+
+                    $tokenID = $this->get_selected_card_token();
+                    $order->add_meta_data( '_id_kashier_token', $tokenID );
+
+                }else{
+
+                }
+
                 $this->_payment_success_handler($order, $responseData['transactionId']);
                 do_action('wc_gateway_kashier_process_response', $response, $order);
+
             } else {
                 $localized_message = WC_Kashier_Helper::get_localized_message('payment_failed');
                 $order->add_order_note(__('Payment Error: ') . $response->getErrorMessage());
@@ -603,6 +761,7 @@ class WC_Gateway_Kashier extends WC_Payment_Gateway_CC
         $wc_token->set_expiry_year(WC_Kashier_Helper::expiry_year_format($expiry_year));
         $wc_token->set_user_id(get_current_user_id());
         $wc_token->save();
+        return $wc_token;
     }
 
     /**

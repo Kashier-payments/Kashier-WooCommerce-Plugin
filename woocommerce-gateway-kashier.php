@@ -1,10 +1,10 @@
 <?php
 /**
- * Plugin Name: WooCommerce Kashier Gateway
+ * Plugin Name: WooCommerce Kashier Gateway 
  * Description: Acceptd online payments on your store.
  * Author: Kashier
  * Author URI: https://kashier.io/
- * Version: 1.0.0
+ * Version: 1.1.0
  * Requires at least: 4.4
  * Tested up to: 5.2.1
  * WC requires at least: 2.6
@@ -33,9 +33,12 @@ add_action('plugins_loaded', 'woocommerce_gateway_kashier_init');
 
 function woocommerce_gateway_kashier_init()
 {
+    add_filter( 'woocommerce_subscriptions_is_duplicate_site', '__return_false' );
+
     load_plugin_textdomain('woocommerce-gateway-kashier', false, plugin_basename(__DIR__) . '/languages');
 
     if (!class_exists('WooCommerce')) {
+
         add_action('admin_notices', 'woocommerce_kashier_missing_wc_notice');
 
         return;

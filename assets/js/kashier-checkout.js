@@ -20,6 +20,7 @@ jQuery(function ($) {
                 this.$form.on('submit', this.onSubmit);
             }
 
+          
             if (this.isOrderPayPage()) {
                 this.$form = $('form#order_review');
                 if(document.getElementById("wc-kashier-payment-token-new"))
@@ -129,12 +130,10 @@ jQuery(function ($) {
             }
             $.scroll_to_notices(scrollElement);
         },
-        onSubmit(e) {
-            if( jQuery("input[name='payment_method']:checked").val() != "kashier"){
-                return true;
-            }
-         
-            console.log('on submit');
+        onSubmit() { 
+              if( jQuery("input[name='payment_method']:checked").val() != "kashier"){
+            return true;
+        }            console.log('on submit');
             if (wc_kashier_checkout_form.isKashierSavedCardChosen() || wc_kashier_checkout_form.isTokenized()) {
                 return true;
             }
@@ -158,7 +157,7 @@ jQuery(function ($) {
             }
 
             const expiry = $.payform.parseCardExpiry($(wc_kashier_checkout_form.selectorExpiryDate).val());
-            const tokenValidity = $('#wc-kashier-new-payment-method').prop('checked') === true || wc_kashier_checkout_form.isAddPaymentMethodPage() ? 'perm' : 'temp';
+            const tokenValidity = $('#cart-contain-subscriptions').val() == 1 || $('#wc-kashier-new-payment-method').prop('checked') === true || wc_kashier_checkout_form.isAddPaymentMethodPage() ? 'perm' : 'temp';
 
             // noinspection JSUnresolvedVariable
             kashier.tokenize(new KashierTokenization(
