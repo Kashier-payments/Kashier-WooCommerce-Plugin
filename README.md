@@ -63,7 +63,9 @@
 
 - After proceeding you will find a Kashier "pay by " button, fill in the test card and proceed to make a payment.
 
-- Test card 5111 1111 1111 1118 - 05/20 - 100
+- Test card 5111 1111 1111 1118 - 06/22 - 100
+
+- Test 3dsecure card 5123 4500 0000 0008 - 06/22 - 100
 
 ![](https://raw.githubusercontent.com/Kashier-payments/Kashier-WooCommerce-Plugin/master/steps/install-5-pay.png)
 
