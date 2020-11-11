@@ -22,7 +22,13 @@ jQuery(function ($) {
 
             if (this.isOrderPayPage()) {
                 this.$form = $('form#order_review');
+                if(document.getElementById("wc-kashier-payment-token-new"))
+                {
+                  document.getElementById("wc-kashier-payment-token-new").checked = true;
+                }
+            
                 this.$form.on('submit', this.onSubmit);
+                
             }
 
             if (!this.$form) {
@@ -123,7 +129,11 @@ jQuery(function ($) {
             }
             $.scroll_to_notices(scrollElement);
         },
-        onSubmit() {
+        onSubmit(e) {
+            if( jQuery("input[name='payment_method']:checked").val() != "kashier"){
+                return true;
+            }
+         
             console.log('on submit');
             if (wc_kashier_checkout_form.isKashierSavedCardChosen() || wc_kashier_checkout_form.isTokenized()) {
                 return true;
