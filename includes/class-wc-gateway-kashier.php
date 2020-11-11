@@ -627,7 +627,7 @@ class WC_Gateway_Kashier extends WC_Payment_Gateway_CC
                 $redirectUrl = $order->get_checkout_payment_url(true);
             } else if ($response->isSuccess()) {
 
-                if( wcs_order_contains_subscription($order) && $submittedToken ){
+                if( function_exists( 'wcs_order_contains_subscription' ) &&  wcs_order_contains_subscription($order) && $submittedToken ){
 
                     $tokenData = $submittedToken['response'];
                     $token  = $this->save_token($tokenData['cardToken'],
@@ -639,8 +639,7 @@ class WC_Gateway_Kashier extends WC_Payment_Gateway_CC
                     $tokenID = $order->add_payment_token($token);
                     $order->add_meta_data( '_id_kashier_token', $tokenID );
 
-                }elseif (wcs_order_contains_subscription($order) && $token){
-
+                }elseif (function_exists( 'wcs_order_contains_subscription' ) && wcs_order_contains_subscription($order) && $token){
                     $tokenID = $this->get_selected_card_token();
                     $order->add_meta_data( '_id_kashier_token', $tokenID );
 
