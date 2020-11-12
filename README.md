@@ -14,6 +14,8 @@
 
 - Embedded form integration.
 
+- Supports [Woocommerce subscriptions](https://woocommerce.com/products/woocommerce-subscriptions/) payments and tokenization.
+
 - 3D secure cards authentication support.
 
 - Support acquiring multiple currencies "EGP, USD, GBP, EUR".
