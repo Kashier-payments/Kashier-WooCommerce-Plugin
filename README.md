@@ -28,7 +28,7 @@
 
 ### Installation
 
-- Download kashier.zip https://github.com/Kashier-payments/Kashier-WooCommerce-Plugin/blob/master/wooCommercev1.zip?raw=true
+- Download kashier.zip https://github.com/Kashier-payments/Kashier-WooCommerce-Plugin/blob/master/wooCommercev2.zip?raw=true
 
 - Upload and activate the plugin on Woocommerce.
 
