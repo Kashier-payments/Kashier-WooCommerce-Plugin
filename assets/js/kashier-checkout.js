@@ -47,9 +47,11 @@ jQuery(function ($) {
             wc_kashier_checkout_form._initValidators();
         },
         _initMasks: function () {
-            $(this.selectorCCNumber).mask('0000 0000 0000 0000');
-            $(this.selectorExpiryDate).mask('00/00');
-            $(this.selectorCCV).mask('000');
+       setTimeout(()=>{
+                $(this.selectorCCNumber).mask('0000 0000 0000 0000');
+                $(this.selectorExpiryDate).mask('00/00');
+                $(this.selectorCCV).mask('000');
+            },2500)
         },
         _initValidators: function () {
             this.$body.on("keyup", this.selectorCCNumber, function () {
