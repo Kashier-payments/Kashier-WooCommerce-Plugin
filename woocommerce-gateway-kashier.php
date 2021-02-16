@@ -11,6 +11,7 @@
  * WC tested up to: 3.6.4
  * Text Domain: woocommerce-gateway-kashier
  * Domain Path: /languages
+ * Plugin URI: https://github.com/Kashier-payments/Kashier-WooCommerce-Plugin/
  *
  */
 
