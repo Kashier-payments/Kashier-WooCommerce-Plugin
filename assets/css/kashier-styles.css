@@ -47,6 +47,7 @@ input.kashier-invalid:focus {
 }
 
 #kashier_3ds_iframe.show {
+    background: white;
     position: fixed;
     top: 0;
     left: 0;
