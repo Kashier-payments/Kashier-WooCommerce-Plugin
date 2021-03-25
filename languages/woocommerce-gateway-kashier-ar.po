@@ -124,8 +124,8 @@ msgid "Expiry Date"
 msgstr "تاريخ الانتهاء"
 
 #: includes/class-wc-gateway-kashier.php:285
-msgid "Card Code (CCV)"
-msgstr "رمز البطاقة (CCV)"
+msgid "CVV"
+msgstr "رمز البطاقة (CVV)"
 
 #: includes/class-wc-gateway-kashier.php:478
 msgid "3DSecure payment verification required"
