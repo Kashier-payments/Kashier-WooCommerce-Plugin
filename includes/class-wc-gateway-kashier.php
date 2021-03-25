@@ -418,7 +418,7 @@ class WC_Gateway_Kashier extends WC_Payment_Gateway_CC
             </div>
 
             <div class="form-row form-row-last">
-                <label for="kashier-cvc-element"><?php esc_html_e('Card Code (CCV)', 'woocommerce-gateway-kashier'); ?>
+                <label for="kashier-cvc-element"><?php esc_html_e('CVV', 'woocommerce-gateway-kashier'); ?>
                     <span class="required">*</span></label>
                 <div class="wc-kashier-elements-field">
                     <input id="<?php echo $this->id . '_ccv' ?>" autocomplete="cc-csc" autocorrect="off"
