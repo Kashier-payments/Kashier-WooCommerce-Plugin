@@ -42,8 +42,17 @@ input.kashier-invalid:focus {
     outline-color: #eb1c26;
 }
 
-.wc-kashier-elements-field input {
-    padding: 5px;
+.wc-kashier-elements-field #kashier_credit_card_number {
+  padding: 5px;
+  width: 100%;
+}
+.wc-kashier-elements-field #kashier_expiry_date {
+  padding: 5px;
+  width: 100%;
+}
+.wc-kashier-elements-field #kashier_ccv {
+  padding: 5px;
+  width: 100%;
 }
 
 #kashier_3ds_iframe.show {
