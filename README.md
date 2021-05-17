@@ -105,5 +105,6 @@
 
 ### Support
 
-- Leave us an inquiry ticket on https://kashier.io for questions.
+- Leave us an inquiry ticket on support@kashier.io for questions.
+
 
